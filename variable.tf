@@ -63,8 +63,8 @@ variable "eks_addons" {
   type        = map(string)
   default = {
     coredns                   = "v1.12.4-eksbuild.1"
-    kube-proxy                = "v1.33.3-eksbuild.10"
-    vpc-cni                   = "v1.20.3-eksbuild.1"
+    kube-proxy                = "v1.32.7-eksbuild.1"
+    vpc-cni                   = "v1.11.8-eksbuild.1"
     metrics-server            = "v0.8.0-eksbuild.2"
     aws-ebs-csi-driver        = "v1.47.0-eksbuild.1"
     eks-node-monitoring-agent = "v1.4.0-eksbuild.2"
@@ -74,10 +74,14 @@ variable "eks_addons" {
 }
 
 variable "external_dns" {
-  type        = map(string)
-  description = "External DNS addons with their versions "
+  type = object({
+    addon_name    = string
+    addon_version = string
+  })
+  description = "External DNS addon configuration with name and version"
   default = {
-    external_dns = "v0.19.0-eksbuild.2"
+    addon_name    = "external-dns"
+    addon_version = "v0.19.0-eksbuild.2"
   }
 }
 
@@ -121,3 +125,4 @@ variable "ingress_rules" {
     }
   ]
 }
+

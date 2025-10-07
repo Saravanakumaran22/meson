@@ -59,9 +59,11 @@ variable "eks_addons" {
 }
 
 variable "external_dns" {
-  type        = map(string)
-  description = "External DNS addons with their versions "
-
+  type = object({
+    addon_name    = string
+    addon_version = string
+  })
+  description = "External DNS addon configuration with name and version"
 }
 
 variable "capacity_type" {

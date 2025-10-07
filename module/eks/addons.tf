@@ -12,10 +12,9 @@ resource "aws_eks_addon" "addons" {
 }
 
 resource "aws_eks_addon" "external_dns" {
-  for_each = var.external_dns
   cluster_name  = aws_eks_cluster.eks_cluster.name
-  addon_name    = each.key
-  addon_version = each.value
+  addon_name    = var.external_dns.addon_name
+  addon_version = var.external_dns.addon_version
 
   service_account_role_arn = aws_iam_role.external_dns_irsa_role.arn
 
