@@ -1,0 +1,15 @@
+{{- $fullname := include "nginx.fullname" . -}}
+{{- $claimName := (printf "%s-%s" $fullname .Values.persistence.claimNameSuffix) -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $claimName }}
+  labels:
+    {{- include "nginx.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.storage.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.storage.size }}
+  storageClassName: {{ .Values.storage.storageClassName | quote }}

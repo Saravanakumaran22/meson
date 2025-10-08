@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ include "nginx.fullname" . }}-pv
+  labels:
+    {{- include "nginx.labels" . | nindent 4 }}
+spec:
+  capacity:
+    storage: {{ .Values.storage.size }}
+  accessModes:
+    - {{ .Values.storage.accessMode }}
+  persistentVolumeReclaimPolicy: {{ .Values.storage.reclaimPolicy }}
+  storageClassName: {{ .Values.storage.storageClassName | quote }}
+  {{- if .Values.storage.ebsVolumeID }}
+  awsElasticBlockStore:
+    volumeID: {{ .Values.storage.ebsVolumeID | quote }}
+    fsType: ext4
+  {{- else }}
+  # No ebsVolumeID provided: leave this blank or switch to dynamic provisioning.
+  {{- end }}

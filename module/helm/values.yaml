@@ -1,0 +1,42 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  tag: "1.25"    # change if you want specific version
+  pullPolicy: IfNotPresent
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30080   # <-- You can choose any port between 30000–32767
+
+
+resources: {}
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+storage:
+  # If you want a static pre-created EBS volume, set ebsVolumeID to actual EBS id (eg. vol-0abc123...)
+  # If you prefer dynamic provisioning, set storageClassName to an AWS storage class (eg gp2 or gp3) and
+  # leave ebsVolumeID blank and do NOT create pv.yaml (or set storage.createPV: false).
+  createPV: true
+  ebsVolumeID: "vol-0REPLACE_WITH_YOUR_VOLUME_ID"  # <--- REPLACE with your EBS volume id if using static PV
+  size: 10Gi
+  accessMode: ReadWriteOnce
+  storageClassName: "manual"   # used for static PV binding; change to gp2/gp3 for dynamic provisioning
+  reclaimPolicy: Retain
+
+persistence:
+  enabled: true
+  existingClaim: ""   # if you want to use an existing PVC, set this name, otherwise leave empty to create one
+  claimNameSuffix: "pvc"  # will be used as <release>-<chart>-pvc by template

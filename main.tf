@@ -2,14 +2,12 @@ provider "aws" {
   region = var.region
 }
 
-
 module "security_group" {
   source        = "./module/security_group"
   vpc_id        = var.vpc_id
   env           = var.env
   ingress_rules = var.ingress_rules
 }
-
 
 module "eks" {
   source              = "./module/eks"
@@ -29,4 +27,13 @@ module "eks" {
   capacity_type       = var.capacity_type
 }
 
+module "ebs" {
+  source = "./module/ebs"
+  ebs_volume_zone = var.region
+  ebs_volume_size = var.ebs_volume_size
+  ebs_volume_type = var.ebs_volume_type
+  }
 
+module "helm" {
+  source = "./module/helm"
+}

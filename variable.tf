@@ -63,10 +63,10 @@ variable "eks_addons" {
   type        = map(string)
   default = {
     coredns                   = "v1.12.4-eksbuild.1"
-    kube-proxy                = "v1.32.7-eksbuild.1"
-    vpc-cni                   = "v1.11.8-eksbuild.1"
+    kube-proxy                = "v1.33.3-eksbuild.4"
+    vpc-cni                   = "v1.19.5-eksbuild.1"
     metrics-server            = "v0.8.0-eksbuild.2"
-    aws-ebs-csi-driver        = "v1.47.0-eksbuild.1"
+    aws-ebs-csi-driver        = "v1.48.0-eksbuild.1"
     eks-node-monitoring-agent = "v1.4.0-eksbuild.2"
     eks-pod-identity-agent    = "v1.3.8-eksbuild.2"
     cert-manager              = "v1.18.2-eksbuild.2"
