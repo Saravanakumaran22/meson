@@ -50,3 +50,4 @@ resource "aws_eks_node_group" "eks_node_group" {
 
 
 
+

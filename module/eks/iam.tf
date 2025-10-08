@@ -107,3 +107,28 @@ resource "aws_iam_role_policy_attachment" "external_dns_attach" {
   policy_arn = aws_iam_policy.external_dns_policy.arn
 }
 
+
+
+
+
+
+
+data "aws_iam_policy_document" "eks_to_es" {
+  statement {
+    actions = [
+      "es:ESHttpPost",
+      "es:ESHttpPut",
+      "es:ESHttpGet"
+    ]
+    resources = ["*"]
+    effect    = "Allow"
+  }
+}
+
+resource "aws_iam_policy" "eks_to_es_policy" {
+  name        = "eks-to-es-policy"
+  description = "Policy allowing EKS to push logs/data to Elasticsearch"
+  policy      = data.aws_iam_policy_document.eks_to_es.json
+}
+
+

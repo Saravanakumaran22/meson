@@ -71,3 +71,12 @@ variable "capacity_type" {
   description = "Capacity type for intsance"
 }
 
+
+
+
+
+
+
+
+
+

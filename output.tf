@@ -1,12 +1,15 @@
-# output "cluster_name" {
-#   value = module.eks.cluster_name
-# }
+# Fetch EKS cluster info using outputs
+data "aws_eks_cluster" "cluster" {
+  name = module.eks.cluster_name
+}
 
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_name
+}
 
-# output "security_group_id" {
-#   value = module.security_group.sg_id
-# }
-
-# output "key_pair_name" {
-#   value = var.key_name
-# }
+# Kubernetes provider using the EKS cluster info
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}

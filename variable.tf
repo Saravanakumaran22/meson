@@ -126,3 +126,51 @@ variable "ingress_rules" {
   ]
 }
 
+
+
+
+
+
+
+
+
+variable "es_domain_name" {
+  description = "Name of the Elasticsearch domain"
+  type        = string
+  default     = "es-dev1-domain"
+}
+
+variable "es_version" {
+  description = "Elasticsearch version, e.g., 7.10"
+  type        = string
+  default     = "7.10"
+}
+
+variable "es_instance_type" {
+  description = "Instance type for Elasticsearch nodes"
+  type        = string
+  default     = "t3.small.elasticsearch"
+}
+
+variable "es_instance_count" {
+  description = "Number of Elasticsearch data nodes"
+  type        = number
+  default     = 1
+}
+
+variable "es_volume_size" {
+  description = "EBS volume size in GiB for each node"
+  type        = number
+  default     = 10
+}
+
+
+
+
+
+
+
+
+
+
+
